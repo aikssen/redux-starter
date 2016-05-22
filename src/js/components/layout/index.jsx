@@ -7,7 +7,7 @@ class Layout extends Component {
 		return (
 			<div id="wrapper">
 				<div id="page-wrapper">
-					{React.cloneElement(this.props.children, this.props.user)}
+					{React.cloneElement(this.props.children, this.props)}
 				</div>
 			</div>
 		);

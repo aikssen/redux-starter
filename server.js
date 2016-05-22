@@ -34,8 +34,12 @@ app.use(require('webpack-hot-middleware')(compiler));
 // assets files
 app.use('/dist', express.static(assets));
 
-app.get('/', function(req, res, next){
-	res.render('index.html');
+// app.get('/', function(req, res, next){
+// 	res.render('index.html');
+// });
+
+app.get('*', function(req, res) {
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 app.listen(port, function() {
