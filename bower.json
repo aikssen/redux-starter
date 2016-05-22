@@ -1,0 +1,29 @@
+{
+  "name": "aidpaid",
+  "description": "",
+  "main": "gulpfile.js",
+  "authors": [
+    "Jason Ruiz <jeison.ruiz@yconsultingservices.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "jquery-validation": "~1.14.0",
+    "bootstrap-datepicker": "~1.5.0",
+    "startbootstrap-sb-admin-2": "~1.0.8"
+  },
+  "overrides":{
+      "bootstrap":{
+        "main":["dist/js/bootstrap.js", "dist/css/bootstrap.css"]
+      }
+  }
+}
