@@ -12,7 +12,7 @@ class NotFound extends Component {
 					<br />
 					Try refreshing the page or click the button below to go back to the Homepage.
 					<div>
-						<a className=" login-detail-panel-button btn" href="/app">
+						<a className=" login-detail-panel-button btn" href="/">
 							<i className="fa fa-arrow-left"></i>
 							Go back to Homepage
 						</a>

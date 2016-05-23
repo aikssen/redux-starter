@@ -1,23 +1,25 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-// import { createHashHistory } from 'history';
+import { Router, Route, IndexRoute } from 'react-router';
+import { Provider } from 'react-redux';
 
-import Layout from './components/layout/';
-import Index from './components/app/';
-import Single from './components/app/Single';
-import NotFound from './components/not-found/';
+import store, { history } from './Store';
+import MainContainer from './containers/MainContainer';
+import Grid from './components/Photo/Grid';
+import Detail from './components/Photo/Detail';
+import NotFound from './components/NotFound/';
 
-// const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
-//<Route path="/views/:postId" component={Single} />
+// provider exposes the store to the entire application
 const routes = (
-	<Router history={browserHistory}>
-		<Route path="/" component={Layout}>
-			<IndexRoute component={Index} />
-			<Route path="/views/:postId" component={Single} />
-		</Route>
-		<Router path="*" component={NotFound} />
-	</Router>
+	<Provider store={store}>
+		<Router history={history}>
+			<Route path="/" component={MainContainer}>
+				<IndexRoute component={Grid} />
+				<Route path="/view/:postId" component={Detail} />
+			</Route>
+			<Router path="*" component={NotFound} />
+		</Router>
+	</Provider>
 );
 
 render(routes, document.getElementById('app'));

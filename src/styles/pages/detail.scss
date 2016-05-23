@@ -1,0 +1,13 @@
+.photo-detail {
+	list-style: none;
+	padding: 5px;
+	margin: 0 auto;
+	width: 900px;
+	overflow: hidden;
+	background: $white;
+	li {
+		a img{
+			width: 600px;
+		}
+	}
+}

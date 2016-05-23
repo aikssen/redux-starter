@@ -1,4 +1,4 @@
-$color: rgb(49, 71, 40);
-body {
-	background: $color;
-}
+@import "variables";
+@import "general";
+@import "pages/grid";
+@import "pages/detail";

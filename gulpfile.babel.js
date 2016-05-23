@@ -23,8 +23,18 @@ import eslint					from 'gulp-eslint';
 import ignore 				from 'gulp-ignore';
 import mainBowerFiles from 'main-bower-files';
 import webpack 				from 'webpack-stream';
+import winston 				from 'winston';
+import notify 				from 'gulp-notify';
+import plumber 				from 'gulp-plumber';
 
 const sync = gulpsync(gulp).sync;
+
+const logger = new (winston.Logger)({
+	transports: [new (winston.transports.Console)({
+		level:    'debug', 
+		colorize: true
+	})]
+});
 
 let COMMON_PATH = 'dist';
 let DEST_JS = `${COMMON_PATH}/js`;
@@ -100,8 +110,15 @@ Please check the .eslintrc file to see the rules.
 gulp.task('lint', () => {
 	return gulp.src('src/js/**/*.jsx')
 	.pipe(eslint())
+	.pipe(plumber())
+	.pipe(eslint.results((results)=>{
+		logger.info(`Total files: ${results.length}`);
+		logger.info(`Total Warnings: ${results.warningCount}`);
+		logger.info(`Total Errors: ${results.errorCount}`);
+	}))
 	.pipe(eslint.format())
-	.pipe(eslint.failAfterError());
+	.pipe(eslint.failAfterError())
+	.on('error', notify.onError('ESLINT FAILED!'));
 });
 
 

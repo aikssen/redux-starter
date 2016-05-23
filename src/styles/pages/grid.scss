@@ -1,0 +1,37 @@
+.container {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	height: 100%;
+	overflow: hidden;
+
+	.item {
+		background: $white;
+		color: $text-color-dark;
+		padding: 5px;
+	  width: 250px;
+	  margin-top: 10px;
+		a img {
+			width: 250px;
+		}
+		.controls {
+			margin-top: 10px;
+			
+			button {
+				width: 120px;
+				height: 30px;
+				margin-right: 5px;
+				border-radius: 0;
+				border: none;
+				background: $color;
+				color: $white;
+				font-size: 20px;
+				vertical-align: baseline;
+			}
+		}
+	}
+}
