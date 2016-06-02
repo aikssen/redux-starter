@@ -17,10 +17,8 @@ const enhancers = compose(
 	window.devToolsExtension ? window.devToolsExtension() : fun => fun
 );
 
-
+// ******************* only for development *****************************
 const store = createStore(rootReducer, defaultState, enhancers);
-
-export const history = syncHistoryWithStore(browserHistory, store);
 
 //hot reducer reloading for development
 if(module.hot) {
@@ -29,5 +27,10 @@ if(module.hot) {
 		store.replaceReducer(nextRootReducer);
 	});
 }
+// ******************* only for development *****************************
+
+
+// allows to pass the store (data) to the components
+export const history = syncHistoryWithStore(browserHistory, store);
 
 export default store;

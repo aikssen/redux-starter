@@ -1,18 +1,19 @@
-var express = require('express');
-var ejs = require('ejs');
-var webpack = require('webpack');
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-var morgan = require('morgan');
-var config = require('./webpack.config.dev');
+const express = require('express');
+const ejs = require('ejs');
+const webpack = require('webpack');
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+const morgan = require('morgan');
+const winston = require('winston');
+const config = require('./webpack.config.dev');
 
-var app = express();
-var templates = __dirname + '/views';
-var assets = __dirname + '/dist';
-var port = process.env.PORT || 4000;
-var compiler = webpack(config);
+const app = express();
+const templates = `${__dirname}/views`;
+const assets = `${__dirname}/dist`;
+const defaultPort = 4000;
+const port = process.env.PORT || defaultPort;
+const compiler = webpack(config);
 
-app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('X-HTTP-Method-Override'));
@@ -24,9 +25,9 @@ app.engine('html', ejs.renderFile);
 //https://webpack.github.io/docs/webpack-dev-middleware.html
 //https://webpack.github.io/docs/node.js-api.html
 app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-	stats: { colors: true, chunks: false },
-  publicPath: config.output.publicPath
+	noInfo:     true,
+	stats:      { colors: true, chunks: false },
+	publicPath: config.output.publicPath
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
@@ -38,10 +39,10 @@ app.use('/dist', express.static(assets));
 // 	res.render('index.html');
 // });
 
-app.get('*', function(req, res) {
-  res.sendFile(__dirname + '/views/index.html');
+app.get('*', (req, res) => {
+	res.sendFile( `${__dirname}/views/index.html`);
 });
 
-app.listen(port, function() {
-	console.log('Server Running in port '+ port);
+app.listen(port, () => {
+	winston.info( `Server Running in port ${port}`);
 });

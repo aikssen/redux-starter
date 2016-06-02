@@ -1,4 +1,3 @@
-server.js
 webpack.*
 dist/**/*
 node_modules/
