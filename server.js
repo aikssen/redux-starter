@@ -35,13 +35,13 @@ app.use(require('webpack-hot-middleware')(compiler));
 // assets files
 app.use('/dist', express.static(assets));
 
-// app.get('/', function(req, res, next){
-// 	res.render('index.html');
-// });
-
-app.get('*', (req, res) => {
-	res.sendFile( `${__dirname}/views/index.html`);
+app.get('/*', (req, res, next) => {
+	res.render('index.html');
 });
+
+// app.get('*', (req, res) => {
+// 	res.sendFile( `${__dirname}/views/index.html`);
+// });
 
 app.listen(port, () => {
 	winston.info( `Server Running in port ${port}`);
