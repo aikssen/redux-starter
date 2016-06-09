@@ -37,7 +37,10 @@ module.exports = {
 				test:	  /\.jsx$/,
 				exclude: /(node_modules|bower_components)/,
 				loader: 'babel',
-				query:	{ presets: ['es2016', 'stage-1', 'react'] }
+				query:	{
+					plugins: ['transform-decorators-legacy'],
+					presets: ['es2016', 'stage-1', 'react']
+				}
 			},
 			{ //compiles sass
 				test: /\.scss$/,
