@@ -7,6 +7,7 @@ import {
 	FETCH_PROTECTED_DATA_REQUEST,
 	RECEIVE_PROTECTED_DATA
 } from '../constants';
+import fetch from 'isomorphic-fetch';
 import { pushState } from 'redux-router';
 import jwtDecode from 'jwt-decode';
 
@@ -56,9 +57,10 @@ export function logoutAndRedirect() {
 
 export function loginUser(email, password, redirect = '/') {
 	return function(dispatch) {
+		console.log('2login....', email, password, redirect, LOGIN_USER_REQUEST);
 		dispatch(loginUserRequest());
 
-		return fetch('http://localhost:3000/auth/getToken/', {
+		return fetch('http://localhost:4001/auth/getToken', {
 			method: 'post',
 			credentials: 'include',
 			headers: {
@@ -108,7 +110,8 @@ export function fetchProtectedData(token) {
 	return (dispatch, state) => {
 		dispatch(fetchProtectedDataRequest());
 
-		return fetch('http://localhost:3000/getData/', {
+		return fetch('http://localhost:4001/getData', {
+			method: 'get',
 			credentials: 'include',
 			headers: {
 				'Authorization': `Bearer ${token}`
@@ -120,6 +123,7 @@ export function fetchProtectedData(token) {
 			dispatch(receiveProtectedData(response.data));
 		})
 		.catch(error => {
+			console.log(error);
 			if(error.response.status === 401) {
 				dispatch(loginUserFailure(error));
 				dispatch(pushState(null, '/login'));

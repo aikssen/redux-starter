@@ -10,7 +10,7 @@ import { logoutAndRedirect } from '../actions';
 		isAuthenticated: state.auth.isAuthenticated
 	};
 })
-export default class CoreLayout extends React.Component {
+export default class AppContainer extends React.Component {
 
 	render() {
 		const { dispatch } = this.props;
@@ -25,10 +25,9 @@ export default class CoreLayout extends React.Component {
 						<div id="navbar">
 							<ul className="nav navbar-nav navbar-right">
 								<li><Link to="/protected">Protected Content</Link></li>
-								<li><Link to="/login">Login</Link></li>
 								{this.props.isAuthenticated
 									? <li><a href='#' onClick={() => this.props.dispatch(logoutAndRedirect())}>Logout</a> </li>
-								: ''
+									: <li><Link to="/login">Login</Link></li>
 								}
 							</ul>
 						</div>

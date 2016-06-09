@@ -7,15 +7,23 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import createLogger from 'redux-logger';
 
 export default function configureStore(initialState) {
-	let createStoreWithMiddleware;
+	// let createStoreWithMiddleware;
 
-	const logger = createLogger();
+	// const logger = createLogger();
 
-	const middleware = applyMiddleware(thunk, logger);
+	const middleware = applyMiddleware(thunk, createLogger());
 
-	createStoreWithMiddleware = compose(
+	// redux dev tools
+	// const enhancers = compose(
+	// 	window.devToolsExtension ? window.devToolsExtension() : fun => fun
+	// );
+
+	const enhancers = window.devToolsExtension ? window.devToolsExtension() : fun => fun;
+
+	const createStoreWithMiddleware = compose(
 		middleware,
-		reduxReactRouter({ routes, createHistory })
+		reduxReactRouter({ routes, createHistory }),
+		window.devToolsExtension ? window.devToolsExtension() : fun => fun
 	);
 
 	const store = createStoreWithMiddleware(createStore)(rootReducer, initialState);
