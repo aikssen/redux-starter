@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "build-qa": "APP_ENV=qa gulp build",
-    "build-pro": "APP_ENV=production gulp build",
-    "build-dev": "APP_ENV=development gulp",
+    "build-pro": "APP_ENV=pro gulp build",
+    "build-dev": "APP_ENV=dev node server.js",
     "server": "nodemon server.js",
     "start": "npm run server"
   },
@@ -18,7 +18,7 @@
       "es2016"
     ]
   },
-  "repository": "",
+  "repository": "https://github.com/aikssen/redux-starter",
   "author": "Ever Cifuentes",
   "license": "MIT",
   "devDependencies": {
@@ -58,10 +58,10 @@
     "react": "^15.0.2",
     "react-addons-linked-state-mixin": "^15.1.0",
     "react-bootstrap": "^0.29.4",
-    "react-dom": "^0.14.7",
+    "react-dom": "^15.1.0",
     "react-mixin": "^3.0.5",
     "react-redux": "^4.4.5",
-    "react-router": "1.0.0-rc1",
+    "react-router": "^1.0.0",
     "react-router-redux": "^4.0.4",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",

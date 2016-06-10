@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import reactMixin from 'react-mixin';
 import * as actionCreators from '../../actions';
 
-export class Login extends React.Component {
+class Login extends Component {
 
 	constructor(props) {
 		super(props);
