@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-export default class HomeView extends React.Component {
+export default class Home extends React.Component {
 
 	render() {
 		return (
@@ -10,5 +10,5 @@ export default class HomeView extends React.Component {
 				<p>Attempt to access some <Link to='/protected'>protected content.</Link></p>
 			</div>
 		);
-	}	
+	}
 }

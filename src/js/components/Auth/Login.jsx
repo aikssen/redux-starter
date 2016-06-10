@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import reactMixin from 'react-mixin';
 import * as actionCreators from '../../actions';
 
-export class LoginView extends React.Component {
+export class Login extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -59,7 +59,7 @@ export class LoginView extends React.Component {
 	}
 }
 
-reactMixin(LoginView.prototype, LinkedStateMixin);
+reactMixin(Login.prototype, LinkedStateMixin);
 
 const mapStateToProps = (state) => ({
 	isAuthenticating: state.auth.isAuthenticating,
@@ -70,4 +70,4 @@ const mapDispatchToProps = (dispatch) => ({
 	actions: bindActionCreators(actionCreators, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginView);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
