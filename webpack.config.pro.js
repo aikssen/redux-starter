@@ -4,9 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 	devtool: 'source-map',
-	// watch:	 true,
 	entry:	 [
-		'webpack-hot-middleware/client',
 		'./src/js/App.jsx',
 		'./src/styles/importer.scss'
 	],
@@ -15,20 +13,20 @@ module.exports = {
 	},
 	output: {
 		path:				path.join(__dirname, '/dist/js/'),
-		filename:		'bundle.js',
+		filename:		'bundle.min.js',
 		publicPath: '/dist/js/'
 	},
 	plugins: [
 		new webpack.optimize.OccurenceOrderPlugin(),
-		new ExtractTextPlugin('../css/styles.css'),
+		new ExtractTextPlugin('../css/styles.min.css'),
 		new webpack.DefinePlugin({
 			'process.env': {
-				'APP_ENV': JSON.stringify(process.env.APP_ENV)
+				'NODE_ENV': JSON.stringify("production")
 			}
 		}),
 		new webpack.optimize.UglifyJsPlugin({ //for production
 			mangle: false,
-			minimize: true,
+			minimize: true, //css and js
 			compressor: { warnings: false } //true
 		})
 	],
@@ -37,11 +35,14 @@ module.exports = {
 			{ //compiles react es7
 				test:		/\.jsx$/,
 				loader: ['babel'],
-				query:	{ presets: ['es2016', 'stage-1', 'react'] }
+				query:	{
+					//plugins: ['transform-decorators-legacy'],
+					presets: ['latest', 'stage-1', 'react']
+				}
 			},
 			{ //compiles sass
 				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract('css!sass')
+				loader: ExtractTextPlugin.extract('raw!sass')
 			}
 		]
 	}

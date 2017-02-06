@@ -9,8 +9,6 @@ class Grid extends Component {
 	}
 
 	render() {
-		// console.log(config.api.createUserURL);
-		// react-addons-css-transition-group
 		return (
 			<ul className="container">
 				{this.props.posts.map((post, index) =>

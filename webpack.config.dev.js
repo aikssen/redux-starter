@@ -14,7 +14,7 @@ module.exports = {
 	},
 	output: {
 		path:			  path.join(__dirname, '/dist/js/'),
-		filename:	  'bundle.js',
+		filename:	  'bundle.min.js',
 		publicPath: '/dist/js/'
 	},
 	plugins: [
@@ -22,26 +22,29 @@ module.exports = {
 		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
 			'process.env': {
-				'APP_ENV': JSON.stringify(process.env.APP_ENV)
+				'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
 			}
 		}),
 	],
 	module:	{
 		preLoaders: [{ //linting
 			test:	  /\.jsx$/,
-			exclude: /(node_modules|bower_components)/,
+			exclude: /(node_modules|vendor)/,
 			loaders: ['eslint-loader']
 		}],
 		loaders: [
 			{ //compiles react es7
 				test:	  /\.jsx$/,
-				exclude: /(node_modules|bower_components)/,
+				exclude: /(node_modules|vendor)/,
 				loader: 'babel',
-				query:	{ presets: ['es2016', 'stage-1', 'react'] }
+				query:	{
+					//plugins: ['transform-decorators-legacy'],
+					presets: ['latest', 'stage-1', 'react']
+				}
 			},
 			{ //compiles sass
 				test: /\.scss$/,
-				loader: 'style-loader!css-loader!sass-loader',
+				loader: 'style-loader!raw-loader!sass-loader',
 				pathinfo: false
 		  }
 		]

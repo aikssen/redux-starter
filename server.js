@@ -6,15 +6,17 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const winston = require('winston');
 const config = require('./webpack.config.dev');
+// const jwt = require('jsonwebtoken');
 
 const app = express();
 const templates = `${__dirname}/views`;
 const assets = `${__dirname}/dist`;
-const defaultPort = 4000;
+const defaultPort = 4001;
 const port = process.env.PORT || defaultPort;
 const compiler = webpack(config);
 
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+// app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(morgan('dev'));
