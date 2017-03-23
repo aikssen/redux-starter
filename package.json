@@ -45,6 +45,7 @@
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.1.0",
     "gulp-rimraf": "^0.2.0",
+    "gulp-run": "^1.7.1",
     "gulp-sync": "^0.1.4",
     "gulp-uglify": "^2.0.1",
     "lodash": "^4.12.0",

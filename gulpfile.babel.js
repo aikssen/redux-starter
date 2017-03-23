@@ -26,6 +26,7 @@ import webpack 				from 'webpack-stream';
 import winston 				from 'winston';
 import notify 				from 'gulp-notify';
 import plumber 				from 'gulp-plumber';
+import run 						from 'gulp-run';
 
 const sync = gulpsync(gulp).sync;
 
@@ -48,6 +49,10 @@ gulp.task('clean', () => {
 	.pipe(rm({ force: true }));
 });
 
+gulp.task('clean-ssl', () => {
+	return gulp.src( `ssl/*`, { read: false })
+	.pipe(rm({ force: true }));
+});
 
 // ******************* CUSTOM ASSETS	************************
 
@@ -94,6 +99,26 @@ gulp.task('vendor-scripts', () => {
 	.pipe(uglify())
 	.pipe(gulp.dest(DEST_JS));
 });
+
+// ******************* SSL CERTIFICATES	************************
+gulp.task('ssl-key', () => {
+	return run('openssl genrsa -out ./ssl/key.pem 1024').exec();
+});
+
+//https://raymii.org/s/snippets/OpenSSL_generate_CSR_non-interactivemd.html
+gulp.task('ssl-csr', () => {
+	const data = '/C=NL/ST=Zuid Holland/L=Rotterdam/O=Some Company/OU=IT Department/CN=mysite.org';
+	return run(`openssl req -new -key ./ssl/key.pem -out ./ssl/csr.pem -subj "${data}"`).exec();
+});
+
+gulp.task('ssl-cert', () => {
+	return run('openssl x509 -req -in ./ssl/csr.pem -signkey ./ssl/key.pem -out ./ssl/cert.pem').exec();
+});
+
+// SSL certificates geneeration for HTTPS and WSS
+gulp.task('ssl', sync(['ssl-key', ['ssl-csr', ['ssl-cert']]]));
+
+
 
 // ******************* VENDORS ASSETS	************************
 
