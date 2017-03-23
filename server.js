@@ -4,8 +4,6 @@ const fs = require('fs');
 const express = require('express');
 const http = require('http');
 const https = require('https');
-const io = require('socket.io');
-
 const ejs = require('ejs');
 const webpack = require('webpack');
 const bodyParser = require('body-parser');
@@ -14,8 +12,6 @@ const config = require('./webpack.config.dev');
 // debug imports
 const morgan = require('morgan');
 const winston = require('winston');
-// security imports
-// const jwt = require('jsonwebtoken');
 
 const app = express();
 const templates = `${__dirname}/views`;
@@ -50,16 +46,11 @@ app.get('/*', (req, res, next) => {
 	res.render('index.html');
 });
 
-// app.listen(port, () => {
-// 	winston.info( `Server Running in port ${port}`);
-// });
-
 const options = {
   key: fs.readFileSync('ssl/key.pem'),
   ca: fs.readFileSync('ssl/csr.pem'),
   cert: fs.readFileSync('ssl/cert.pem')
 };
-
 
 // normal HTTP server
 http.createServer(app).listen(port, () => {
@@ -71,22 +62,6 @@ const server = https.createServer(options, app);
 
 server.listen(securePort, () => {
 	winston.info( `Server Running in https://localhost:${securePort}/`);
-});
-
-// const ws = io.connect(`https://localhost:${securePort}/`, { secure: true });
-const ws = io.listen(server);
-// ws.listen(server);
-
-ws.on('connection', (socket) => {
-  winston.info('a user connected');
-
-	socket.on('chat message', (msg) => {
-    ws.emit('chat message', msg);
-  });
-
-	socket.on('disconnect', () => {
-		winston.info('user disconnected');
-	});
 });
 
 

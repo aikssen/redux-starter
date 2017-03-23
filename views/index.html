@@ -13,8 +13,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
 	<script src="../dist/js/bundle.min.js"></script>
   <script type="text/javascript">
-    var ws = io('wss://localhost:4002', {});
+    var ws = io('wss://localhost:4003', {});
     ws.emit('chat message','HELLO FROM IO');
+    ws.emit('chat message',{ some: { other: 'value' } });
     ws.on('chat message', function(msg){
       console.log(msg);
     });
