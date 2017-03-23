@@ -51,6 +51,7 @@ gulp.task('clean', () => {
 
 gulp.task('clean-ssl', () => {
 	return gulp.src( `ssl/*`, { read: false })
+	.pipe(ignore('.gitignore'))
 	.pipe(rm({ force: true }));
 });
 
